@@ -64,7 +64,6 @@
     owner: "{{ grafana_user }}"
     group: "{{ grafana_group }}"
     mode: 0644
-  become: yes
   notify:
     - Restart grafana server
 
@@ -87,3 +86,9 @@
   with_items:
     - grafana-clock-panel
     - grafana-piechart-panel
+    
+- name: Disable the ufw firewall (on Ubuntu, if configured).
+  service:
+    name: ufw
+    state: stopped
+    enabled: false
